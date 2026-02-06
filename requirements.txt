@@ -1,0 +1,14 @@
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+lightgbm
+fastapi
+uvicorn
+redis
+kafka-python
+pytest
+flake8
+shap
+mlflow
