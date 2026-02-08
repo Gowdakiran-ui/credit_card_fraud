@@ -30,7 +30,7 @@ wheels/
 # Environments
 .env
 .venv
-venv/
+**/venv/
 ENV/
 
 # IDEs
@@ -42,4 +42,4 @@ ENV/
 # Project Specific
 logs/
 models/
-plots/
+
