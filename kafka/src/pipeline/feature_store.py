@@ -4,7 +4,7 @@ Manages real-time feature retrieval for fraud detection
 """
 import redis
 from typing import Dict, Any, Optional, List
-from src.utils.logger import get_feature_store_logger
+from utils.logger import get_feature_store_logger
 
 logger = get_feature_store_logger()
 

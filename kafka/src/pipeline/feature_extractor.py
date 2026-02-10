@@ -5,7 +5,7 @@ Computes real-time fraud detection features from transaction events
 import time
 from typing import Dict, Any, List
 from datetime import datetime
-from src.utils.logger import get_feature_extractor_logger
+from utils.logger import get_feature_extractor_logger
 
 logger = get_feature_extractor_logger()
 

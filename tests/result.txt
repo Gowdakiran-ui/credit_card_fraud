@@ -1,0 +1,251 @@
+﻿================================================================================
+ML FEATURE PIPELINE - TEST RESULTS
+================================================================================
+Test Date: 2026-02-10
+Test Framework: pytest 9.0.2
+Python Version: 3.12.10
+Total Tests: 146
+Status: ✅ ALL TESTS PASSED
+Execution Time: 1.11 seconds
+================================================================================
+
+TEST SUMMARY BY LAYER:
+================================================================================
+
+Layer 1: Schema Validation (36 tests)
+  ✅ All required fields validation
+  ✅ Data type conversion and validation
+  ✅ Range validation (amounts, timestamps, coordinates)
+  ✅ Malformed input handling
+  ✅ Optional field defaults
+  Status: 36/36 PASSED
+
+Layer 2: Preprocessing (33 tests)
+  ✅ Semantic preservation
+  ✅ Unicode and emoji handling
+  ✅ Deterministic transformations
+  ✅ Amount normalization
+  ✅ Timestamp parsing
+  ✅ Type coercion
+  Status: 33/33 PASSED
+
+Layer 3: Feature Validation (33 tests)
+  ✅ Feature existence
+  ✅ No NaN/infinite values
+  ✅ Value range validation
+  ✅ Deterministic computation
+  ✅ Edge case handling
+  Status: 33/33 PASSED
+
+Layer 4: Time Consistency (16 tests)
+  ✅ Point-in-time correctness
+  ✅ Feature freshness
+  ✅ Idempotency
+  ✅ Temporal ordering
+  ✅ Velocity window boundaries
+  Status: 16/16 PASSED
+
+Layer 5: Offline-Online Parity (14 tests)
+  ✅ Schema consistency
+  ✅ Value preservation
+  ✅ Type conversion
+  ✅ Error handling
+  ✅ Rolling average consistency
+  Status: 14/14 PASSED
+
+Layer 6: End-to-End Pipeline (14 tests)
+  ✅ Complete pipeline flow
+  ✅ Entity ID preservation
+  ✅ Data integrity
+  ✅ Error recovery
+  ✅ Performance validation
+  Status: 14/14 PASSED
+
+================================================================================
+FAILURE MODES PREVENTED:
+================================================================================
+
+✅ Silent Failures → Made Visible
+  - Missing required fields raise ValueError
+  - Invalid data types raise ValueError
+  - Out-of-range values raise ValueError
+  - Redis failures return defaults + log error
+  - All errors are explicit, never silent
+
+✅ Data Corruption → Prevented
+  - Negative amounts converted to absolute value
+  - Extreme amounts clipped to percentile
+  - Future timestamps rejected
+  - Invalid coordinates rejected
+  - Duplicate processing is idempotent
+
+✅ Training-Serving Skew → Eliminated
+  - Point-in-time correctness enforced
+  - No future data leakage
+  - Deterministic feature computation
+  - Offline-online parity validated
+
+================================================================================
+DETAILED TEST RESULTS:
+================================================================================
+
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\Kiran gowda.A\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\books\credit_card\tests
+configfile: pytest.ini
+plugins: anyio-4.9.0, langsmith-0.3.45, mock-3.15.1, typeguard-4.4.4
+collecting ... collected 146 items
+
+tests\test_end_to_end.py::TestEndToEndPipeline::test_end_to_end_transaction_processing PASSED [  0%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_entity_id_preserved_across_pipeline PASSED [  1%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_timestamp_preserved_across_pipeline PASSED [  2%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_amount_preserved_across_pipeline PASSED [  2%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_sequential_transactions_update_state PASSED [  3%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_batch_processing_maintains_consistency PASSED [  4%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_invalid_transaction_rejected_early PASSED [  4%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_pipeline_continues_after_single_failure PASSED [  5%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_no_data_loss_in_pipeline PASSED [  6%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_no_silent_corruption PASSED [  6%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_pipeline_completes_within_reasonable_time PASSED [  7%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_pipeline_is_deterministic PASSED [  8%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_minimal_valid_transaction PASSED [  8%]
+tests\test_end_to_end.py::TestEndToEndPipeline::test_transaction_with_all_optional_fields PASSED [  9%]
+tests\test_feature_validation.py::TestFeatureValidation::test_all_expected_features_present PASSED [ 10%]
+tests\test_feature_validation.py::TestFeatureValidation::test_no_none_values_in_features PASSED [ 10%]
+tests\test_feature_validation.py::TestFeatureValidation::test_features_always_returns_dict PASSED [ 11%]
+tests\test_feature_validation.py::TestFeatureValidation::test_no_nan_values PASSED [ 12%]
+tests\test_feature_validation.py::TestFeatureValidation::test_no_infinite_values PASSED [ 13%]
+tests\test_feature_validation.py::TestFeatureValidation::test_division_by_zero_handled PASSED [ 13%]
+tests\test_feature_validation.py::TestFeatureValidation::test_log_of_zero_handled PASSED [ 14%]
+tests\test_feature_validation.py::TestFeatureValidation::test_amount_is_positive PASSED [ 15%]
+tests\test_feature_validation.py::TestFeatureValidation::test_amount_log_is_non_negative PASSED [ 15%]
+tests\test_feature_validation.py::TestFeatureValidation::test_has_location_is_binary PASSED [ 16%]
+tests\test_feature_validation.py::TestFeatureValidation::test_has_location_true_when_coordinates_present PASSED [ 17%]
+tests\test_feature_validation.py::TestFeatureValidation::test_has_location_false_when_coordinates_missing PASSED [ 17%]
+tests\test_feature_validation.py::TestFeatureValidation::test_velocity_counts_non_negative PASSED [ 18%]
+tests\test_feature_validation.py::TestFeatureValidation::test_velocity_amounts_non_negative PASSED [ 19%]
+tests\test_feature_validation.py::TestFeatureValidation::test_unique_merchants_non_negative PASSED [ 19%]
+tests\test_feature_validation.py::TestFeatureValidation::test_time_since_last_tx_non_negative PASSED [ 20%]
+tests\test_feature_validation.py::TestFeatureValidation::test_hour_of_day_range PASSED [ 21%]
+tests\test_feature_validation.py::TestFeatureValidation::test_day_of_week_range PASSED [ 21%]
+tests\test_feature_validation.py::TestFeatureValidation::test_is_weekend_binary PASSED [ 22%]
+tests\test_feature_validation.py::TestFeatureValidation::test_is_night_binary PASSED [ 23%]
+tests\test_feature_validation.py::TestFeatureValidation::test_merchant_risk_score_range PASSED [ 23%]
+tests\test_feature_validation.py::TestFeatureValidation::test_merchant_fraud_rate_range PASSED [ 24%]
+tests\test_feature_validation.py::TestFeatureValidation::test_feature_extraction_is_deterministic PASSED [ 25%]
+tests\test_feature_validation.py::TestFeatureValidation::test_multiple_extractions_consistent PASSED [ 26%]
+tests\test_feature_validation.py::TestFeatureValidation::test_temporal_features_deterministic_for_same_timestamp PASSED [ 26%]
+tests\test_feature_validation.py::TestFeatureValidation::test_first_transaction_for_card PASSED [ 27%]
+tests\test_feature_validation.py::TestFeatureValidation::test_high_velocity_transaction PASSED [ 28%]
+tests\test_feature_validation.py::TestFeatureValidation::test_very_large_amount PASSED [ 28%]
+tests\test_feature_validation.py::TestFeatureValidation::test_very_small_amount PASSED [ 29%]
+tests\test_feature_validation.py::TestFeatureValidation::test_weekend_detection_saturday PASSED [ 30%]
+tests\test_feature_validation.py::TestFeatureValidation::test_weekend_detection_weekday PASSED [ 30%]
+tests\test_feature_validation.py::TestFeatureValidation::test_night_detection_late_night PASSED [ 31%]
+tests\test_feature_validation.py::TestFeatureValidation::test_night_detection_daytime PASSED [ 32%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_card_features_schema_consistency PASSED [ 32%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_merchant_features_schema_consistency PASSED [ 33%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_default_values_match_expected_schema PASSED [ 34%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_stored_and_retrieved_values_match PASSED [ 34%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_numeric_precision_preserved PASSED [ 35%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_string_to_int_conversion PASSED [ 36%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_string_to_float_conversion PASSED [ 36%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_missing_features_use_defaults PASSED [ 37%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_partial_features_filled_with_defaults PASSED [ 38%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_redis_error_returns_defaults PASSED [ 39%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_invalid_type_conversion_returns_defaults PASSED [ 39%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_rolling_average_update_and_retrieval PASSED [ 40%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_rolling_average_first_transaction PASSED [ 41%]
+tests\test_offline_online_parity.py::TestOfflineOnlineParity::test_feature_values_within_reasonable_bounds PASSED [ 41%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_preprocessing_preserves_transaction_id PASSED [ 42%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_preprocessing_preserves_card_id PASSED [ 43%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_preprocessing_preserves_merchant_id PASSED [ 43%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_preprocessing_preserves_amount_value PASSED [ 44%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_preprocessing_does_not_modify_original PASSED [ 45%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_amount_rounding_precision PASSED [ 45%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_unicode_in_transaction_id PASSED [ 46%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_unicode_in_merchant_id PASSED [ 47%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_emoji_in_merchant_category PASSED [ 47%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_special_characters_in_ids PASSED [ 48%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_whitespace_in_strings PASSED [ 49%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_empty_string_merchant_category PASSED [ 50%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_very_long_string_ids PASSED [ 50%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_negative_amount_converted_to_positive PASSED [ 51%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_amount_clipping_at_max_value PASSED [ 52%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_amount_not_clipped_when_below_threshold PASSED [ 52%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_small_amount_precision PASSED [ 53%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_fractional_cents_rounded PASSED [ 54%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_timestamp_unix_epoch_preserved PASSED [ 54%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_timestamp_float_truncated_to_int PASSED [ 55%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_timestamp_iso_format_parsed PASSED [ 56%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_timestamp_standard_format_parsed PASSED [ 56%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_preprocessing_is_deterministic PASSED [ 57%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_multiple_runs_same_result PASSED [ 58%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_order_independence_of_fields PASSED [ 58%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_very_small_amount PASSED [ 59%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_integer_amount_converted_to_float PASSED [ 60%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_null_optional_coordinates PASSED [ 60%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_zero_coordinates PASSED [ 61%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_numeric_string_ids_converted_to_string PASSED [ 62%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_boolean_converted_to_string PASSED [ 63%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_all_input_fields_present_in_output PASSED [ 63%]
+tests\test_preprocessing.py::TestPreprocessingValidation::test_optional_fields_added_when_missing PASSED [ 64%]
+tests\test_schema_validation.py::TestSchemaValidation::test_all_required_fields_present PASSED [ 65%]
+tests\test_schema_validation.py::TestSchemaValidation::test_missing_transaction_id PASSED [ 65%]
+tests\test_schema_validation.py::TestSchemaValidation::test_missing_card_id PASSED [ 66%]
+tests\test_schema_validation.py::TestSchemaValidation::test_missing_amount PASSED [ 67%]
+tests\test_schema_validation.py::TestSchemaValidation::test_missing_merchant_id PASSED [ 67%]
+tests\test_schema_validation.py::TestSchemaValidation::test_missing_timestamp PASSED [ 68%]
+tests\test_schema_validation.py::TestSchemaValidation::test_multiple_missing_fields PASSED [ 69%]
+tests\test_schema_validation.py::TestSchemaValidation::test_null_required_field PASSED [ 69%]
+tests\test_schema_validation.py::TestSchemaValidation::test_correct_data_types PASSED [ 70%]
+tests\test_schema_validation.py::TestSchemaValidation::test_amount_string_to_float_conversion PASSED [ 71%]
+tests\test_schema_validation.py::TestSchemaValidation::test_amount_int_to_float_conversion PASSED [ 71%]
+tests\test_schema_validation.py::TestSchemaValidation::test_invalid_amount_type PASSED [ 72%]
+tests\test_schema_validation.py::TestSchemaValidation::test_timestamp_float_to_int_conversion PASSED [ 73%]
+tests\test_schema_validation.py::TestSchemaValidation::test_timestamp_iso_string_parsing PASSED [ 73%]
+tests\test_schema_validation.py::TestSchemaValidation::test_invalid_timestamp_format PASSED [ 74%]
+tests\test_schema_validation.py::TestSchemaValidation::test_location_coordinates_type_conversion PASSED [ 75%]
+tests\test_schema_validation.py::TestSchemaValidation::test_empty_dictionary PASSED [ 76%]
+tests\test_schema_validation.py::TestSchemaValidation::test_non_dict_input PASSED [ 76%]
+tests\test_schema_validation.py::TestSchemaValidation::test_none_input PASSED [ 77%]
+tests\test_schema_validation.py::TestSchemaValidation::test_list_input PASSED [ 78%]
+tests\test_schema_validation.py::TestSchemaValidation::test_empty_string_fields PASSED [ 78%]
+tests\test_schema_validation.py::TestSchemaValidation::test_negative_amount_conversion PASSED [ 79%]
+tests\test_schema_validation.py::TestSchemaValidation::test_zero_amount PASSED [ 80%]
+tests\test_schema_validation.py::TestSchemaValidation::test_extremely_large_amount PASSED [ 80%]
+tests\test_schema_validation.py::TestSchemaValidation::test_timestamp_too_old PASSED [ 81%]
+tests\test_schema_validation.py::TestSchemaValidation::test_timestamp_too_future PASSED [ 82%]
+tests\test_schema_validation.py::TestSchemaValidation::test_invalid_latitude_too_high PASSED [ 82%]
+tests\test_schema_validation.py::TestSchemaValidation::test_invalid_latitude_too_low PASSED [ 83%]
+tests\test_schema_validation.py::TestSchemaValidation::test_invalid_longitude_too_high PASSED [ 84%]
+tests\test_schema_validation.py::TestSchemaValidation::test_invalid_longitude_too_low PASSED [ 84%]
+tests\test_schema_validation.py::TestSchemaValidation::test_valid_coordinate_boundaries PASSED [ 85%]
+tests\test_schema_validation.py::TestSchemaValidation::test_missing_optional_fields_filled_with_defaults PASSED [ 86%]
+tests\test_schema_validation.py::TestSchemaValidation::test_optional_fields_preserved_when_present PASSED [ 86%]
+tests\test_schema_validation.py::TestSchemaValidation::test_preprocess_raises_on_invalid_schema PASSED [ 87%]
+tests\test_schema_validation.py::TestSchemaValidation::test_preprocess_never_returns_none PASSED [ 88%]
+tests\test_schema_validation.py::TestSchemaValidation::test_validate_schema_always_returns_tuple PASSED [ 89%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_no_future_transactions_in_history PASSED [ 89%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_velocity_window_respects_time_boundaries PASSED [ 90%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_timestamp_ordering_preserved PASSED [ 91%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_time_since_last_tx_accuracy PASSED [ 91%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_first_transaction_has_zero_time_since_last PASSED [ 92%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_timestamp_must_not_be_in_future PASSED [ 93%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_duplicate_transaction_same_features PASSED [ 93%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_state_update_idempotent_for_same_transaction PASSED [ 94%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_preprocessing_idempotent PASSED [ 95%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_hour_of_day_consistent_for_timestamp PASSED [ 95%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_temporal_features_change_with_timestamp PASSED [ 96%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_last_timestamp_updated_correctly PASSED [ 97%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_transaction_history_accumulates PASSED [ 97%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_velocity_increases_with_transactions PASSED [ 98%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_transactions_at_exact_window_boundary PASSED [ 99%]
+tests\test_time_consistency.py::TestTimeConsistencyValidation::test_same_timestamp_multiple_transactions PASSED [100%]
+
+============================= 146 passed in 1.11s =============================
+
+================================================================================
+END OF TEST RESULTS
+================================================================================

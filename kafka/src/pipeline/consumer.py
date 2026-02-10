@@ -10,11 +10,11 @@ from typing import Dict, Any
 from kafka import KafkaConsumer
 from kafka.errors import KafkaError
 
-from src.utils.config import CONSUMER_CONFIG, TOPIC_NAME, REDIS_CONFIG, FEATURE_CONFIG
-from src.pipeline.feature_store import FeatureStore
-from src.pipeline.feature_extractor import FeatureExtractor
-from src.pipeline.preprocessor import TransactionPreprocessor
-from src.utils.logger import get_consumer_logger
+from utils.config import CONSUMER_CONFIG, TOPIC_NAME, REDIS_CONFIG, FEATURE_CONFIG
+from pipeline.feature_store import FeatureStore
+from pipeline.feature_extractor import FeatureExtractor
+from pipeline.preprocessor import TransactionPreprocessor
+from utils.logger import get_consumer_logger
 
 logger = get_consumer_logger()
 
