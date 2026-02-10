@@ -1,0 +1,41 @@
+
+ˆ
+h
+card_number4Credit card number - unique identifier for each card"cc_numJcredit_card_fraud_detection
+…±ªÌ€ä»÷…±ªÌ€ä»÷
+R
+2
+__dummy"
+__dummy_idJcredit_card_fraud_detection
+…±ªÌˆæôö…±ªÌ€ä»÷1"$757e2f78-d8de-4e1b-88e1-937bd4299d6b* ±ªÌ¨å¾W2™
+ç
+transaction_featurescredit_card_fraud_detectioncard_number"
+amt"Transaction amount""
+category"Transaction category" 
+zip"ZIP code of transaction" 
+lat"Latitude of transaction""
+long"Longitude of transaction"
+city_pop"City population"
+merchant"Merchant name" 
+	merch_lat"Merchant latitude""
+
+merch_long"Merchant longitude"
+gender"Cardholder gender"&
+age"Cardholder age at transaction"9
+
+avg_amt_7d")Average transaction amount in last 7 days"4
+tx_count_24h""Transaction count in last 24 hours"8
+unique_merchants_7d"Unique merchants in last 7 days"2
+distance_from_home"Distance from home address"9
+distance_from_last_tx"Distance from last transaction"#
+hour_of_day"Hour of day (0-23)""
+day_of_week"Day of week (0-6)*
+teamfraud_detection*
+versionv12€ç„:’event_timestampZdata/features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢transaction_data’…±ªÌ˜ú†²"…±ªÌ¸Ùöõ@b
+
+cc_num-
+…±ªÌ€¯¦ö ±ªÌ¨å¾W
+€Ûªá€Æº÷b°event_timestampZdata/features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢transaction_dataªcredit_card_fraud_detection’…±ªÌ˜ú†²"…±ªÌ¸ÙöõŠ=
+
+credit_card_fraud_detection
+…±ªÌˆŠ”¿…±ªÌˆŠ”¿
